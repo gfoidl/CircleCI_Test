@@ -28,6 +28,22 @@ jobs:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
+    job_g:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_h:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_i:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_j:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
 
 workflows:
     version: 2
@@ -48,3 +64,18 @@ workflows:
             - job_f:
                 requires:
                     - job_d
+            - job_g:
+                requires:
+                    - job_d
+            - job_h:
+                requires:
+                    - job_d
+            - job_i:
+                requires:
+                    - job_d
+            - job_j:
+                requires:
+                    - job_f
+                    - job_g
+                    - job_h
+                    - job_i
