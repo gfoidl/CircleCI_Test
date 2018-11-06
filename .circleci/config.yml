@@ -1,0 +1,50 @@
+version: 2
+defaults: &defaults
+    working_directory: ~/repo
+    docker:
+        - image: circleci/node:10-jessie
+jobs:
+    job_a:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_b:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_c:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_d:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_e:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+    job_f:
+        <<: *defaults
+        steps:
+            - run: echo "Hi from $CIRCLE_JOB"
+
+workflows:
+    version: 2
+    demo_workdlow:
+        jobs:
+            - job_a
+            - job_b
+            - job_c:
+                requires:
+                    - job_a
+            - job_d:
+                requires:
+                    - job_b
+                    - job_c
+            - job_e:
+                requires:
+                    - job_d
+            - job_f:
+                requires:
+                    - job_d
