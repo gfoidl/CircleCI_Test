@@ -4,43 +4,31 @@ defaults: &defaults
     docker:
         - image: circleci/node:10-jessie
 jobs:
-    job_a:
+    build_win:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_b:
+    build_linux:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_c:
+    build_mac:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_d:
+    demo_win:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_e:
+    demo_linux:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_f:
+    demo_mac:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
-    job_g:
-        <<: *defaults
-        steps:
-            - run: echo "Hi from $CIRCLE_JOB"
-    job_h:
-        <<: *defaults
-        steps:
-            - run: echo "Hi from $CIRCLE_JOB"
-    job_i:
-        <<: *defaults
-        steps:
-            - run: echo "Hi from $CIRCLE_JOB"
-    job_j:
+    deploy:
         <<: *defaults
         steps:
             - run: echo "Hi from $CIRCLE_JOB"
@@ -49,33 +37,20 @@ workflows:
     version: 2
     demo_workdlow:
         jobs:
-            - job_a
-            - job_b
-            - job_c:
+            - build_win
+            - build_linux
+            - build_mac
+            - demo_win:
                 requires:
-                    - job_a
-            - job_d:
+                    - build_win
+            - demo_linux:
                 requires:
-                    - job_b
-                    - job_c
-            - job_e:
+                    - build_linux
+            - demo_mac:
                 requires:
-                    - job_d
-            - job_f:
+                    - build_mac
+            - deploy:
                 requires:
-                    - job_d
-            - job_g:
-                requires:
-                    - job_d
-            - job_h:
-                requires:
-                    - job_d
-            - job_i:
-                requires:
-                    - job_d
-            - job_j:
-                requires:
-                    - job_f
-                    - job_g
-                    - job_h
-                    - job_i
+                    - build_win
+                    - build_linux
+                    - build_mac
